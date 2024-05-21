@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
 import queryString from 'query-string';
-
+import { useNavigate } from 'react-router-dom'
 
 const CategoryBox = ({ label, icon: Icon }) => {
+  const navigate = useNavigate()
+
   const handleClick = () => {
 
     let currentQuery = { category: label }
@@ -12,6 +14,7 @@ const CategoryBox = ({ label, icon: Icon }) => {
       query: currentQuery
     })
     console.log(url)
+    navigate(url)
   }
 
   return (

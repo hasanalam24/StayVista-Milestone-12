@@ -4,22 +4,14 @@ import Container from '../Shared/Container'
 import Heading from '../Shared/Heading'
 import LoadingSpinner from '../Shared/LoadingSpinner'
 import { useQuery } from '@tanstack/react-query'
-
 import useAxiosCommon from '../../hooks/useAxiosCommon'
+import { useSearchParams } from 'react-router-dom'
 
 const Rooms = () => {
-  // const [rooms, setRooms] = useState([])
-  // const [loading, setLoading] = useState(false)
+  const [params, setParams] = useSearchParams()
+  const category = params.get('category')
 
-  // useEffect(() => {
-  //   setLoading(true)
-  //   fetch(`http://localhost:5000/rooms`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setRooms(data)
-  //       setLoading(false)
-  //     })
-  // }, [])
+  console.log(category)
 
   const axiosCommon = useAxiosCommon()
 
