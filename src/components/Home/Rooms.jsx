@@ -16,12 +16,15 @@ const Rooms = () => {
   const axiosCommon = useAxiosCommon()
 
   const { data: rooms = [], isLoading } = useQuery({
-    queryKey: ['rooms'],
+    queryKey: ['rooms', category],
     queryFn: async () => {
-      const { data } = await axiosCommon.get('/rooms')
+      const { data } = await axiosCommon.get(`/rooms?category=${category}`)
       // axios amader ekta object dei jeta data er moddhe data name thake(data.data) tai agei {data}etake distructure kora hoyese
+
       return data
+
     }
+
   })
 
   // console.log(query.data) query holo ekta object r er modde data name object ase tai agei etake distructure kora hoyese {data,isLoading}
