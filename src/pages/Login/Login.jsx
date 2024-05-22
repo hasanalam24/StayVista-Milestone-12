@@ -4,10 +4,12 @@ import useAuth from '../../hooks/useAuth'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { TbFidgetSpinner } from "react-icons/tb";
+import { useState } from 'react'
 
 const Login = () => {
-  const { signInWithGoogle, signIn, loading, setLoading } = useAuth()
+  const { signInWithGoogle, signIn, loading, setLoading, resetPassword } = useAuth()
   const navigate = useNavigate()
+  const [emailUser, setEmailUser] = useState('')
 
 
   const handleLogin = async (e) => {
@@ -24,10 +26,12 @@ const Login = () => {
       navigate('/')
       toast.success('Sign In Successfully Done!')
 
+
     }
     catch (err) {
       console.log(err)
       toast.error(err.message)
+      setLoading(false)
     }
 
   }
@@ -49,7 +53,24 @@ const Login = () => {
 
   }
 
+  const handleResetPassword = async () => {
+    console.log(emailUser)
 
+    if (!emailUser) {
+      return toast.error("Please wright your email first")
+    }
+
+    try {
+      await resetPassword(emailUser)
+      toast.success('Request Success! Check your email for procces...')
+      setLoading(false)
+    }
+    catch (err) {
+      console.log(err)
+      toast.error(err.message)
+
+    }
+  }
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
@@ -74,6 +95,7 @@ const Login = () => {
                 type='email'
                 name='email'
                 id='email'
+                onBlur={e => setEmailUser(e.target.value)}
                 required
                 placeholder='Enter Your Email Here'
                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
@@ -109,7 +131,7 @@ const Login = () => {
           </div>
         </form>
         <div className='space-y-1'>
-          <button className='text-xs hover:underline hover:text-rose-500 text-gray-400'>
+          <button onClick={handleResetPassword} className='text-xs hover:underline hover:text-rose-500 text-gray-400'>
             Forgot password?
           </button>
         </div>
