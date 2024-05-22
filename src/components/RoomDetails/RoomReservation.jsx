@@ -20,7 +20,8 @@ const RoomReservation = ({ room }) => {
       <hr />
       <div className='flex justify-center'>{/* Calender */}
         <DateRange
-
+          rangeColors={['#f6536d']}
+          showDateDisplay={false}
           editableDateInputs={true}
           onChange={item => setState([item.selection])}
           moveRangeOnFirstSelection={false}
