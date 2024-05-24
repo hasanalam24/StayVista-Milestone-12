@@ -60,14 +60,29 @@ const Addroom = () => {
 
     }
 
+
+    //handle image change
+    const handleImage = image => {
+        setImagePreview(URL.createObjectURL(image))
+        setImageText(image.name)
+    }
+
     return (
         <div>
             <h1>Add room page</h1>
-            <div className="h-16 w-16">
+            {/* <div className="h-16 w-16">
                 {imagePreview && <img src={imagePreview} />}
-            </div>
+            </div> */}
             {/* form */}
-            <AddRoomForm dates={dates} handleDates={handleDates} handlerSubmit={handlerSubmit} setImagePreview={setImagePreview} imagePreview={imagePreview}></AddRoomForm>
+            <AddRoomForm
+                dates={dates}
+                handleDates={handleDates}
+                handlerSubmit={handlerSubmit}
+                setImagePreview={setImagePreview}
+                imagePreview={imagePreview}
+                handleImage={handleImage}
+                imageText={imageText}
+            ></AddRoomForm>
         </div>
     );
 };

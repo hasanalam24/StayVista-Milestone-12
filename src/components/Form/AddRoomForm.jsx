@@ -3,7 +3,7 @@ import { categories } from '../Categories/CategoriesData'
 import { DateRange } from 'react-date-range';
 // import { useState } from 'react'
 
-const AddRoomForm = ({ dates, handleDates, handlerSubmit, setImagePreview }) => {
+const AddRoomForm = ({ dates, handleDates, handlerSubmit, setImagePreview, imagePreview, handleImage, imageText }) => {
 
 
     return (
@@ -72,24 +72,32 @@ const AddRoomForm = ({ dates, handleDates, handlerSubmit, setImagePreview }) => 
                             />
                         </div>
 
-                        <div className=' p-4 bg-white w-full  m-auto rounded-lg'>
+                        <div className='flex justify-center items-center gap-5 p-4 bg-white w-full  m-auto rounded-lg'>
                             <div className='file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg'>
                                 <div className='flex flex-col w-max mx-auto text-center'>
                                     <label>
                                         <input
                                             className='text-sm cursor-pointer w-36 hidden'
                                             type='file'
-                                            onChange={e => setImagePreview(URL.createObjectURL(e.target.files[0]))}
+                                            onChange={e => handleImage(e.target.files[0])}
                                             name='image'
                                             id='image'
                                             accept='image/*'
                                             hidden
                                         />
                                         <div className='bg-rose-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-rose-500'>
-                                            Upload Image
+                                            {/* {imageText} */}
+                                            {
+                                                imageText.length > 20 ? imageText.split('.')[0].slice(0, 15) + '....' + imageText.split('.')[1] : imageText
+                                            }
                                         </div>
+
                                     </label>
                                 </div>
+
+                            </div>
+                            <div className="h-16 w-16 object-cover overflow-hidden flex items-center">
+                                {imagePreview && <img src={imagePreview} />}
                             </div>
                         </div>
                         <div className='flex justify-between gap-2'>
