@@ -1,17 +1,10 @@
-import { useState } from 'react';
+
 import { categories } from '../Categories/CategoriesData'
 import { DateRange } from 'react-date-range';
 // import { useState } from 'react'
 
-const AddRoomForm = () => {
+const AddRoomForm = ({ dates, handleDates }) => {
 
-    const [state, setState] = useState([
-        {
-            startDate: new Date(),
-            endDate: null,
-            key: 'selection'
-        }
-    ]);
 
     return (
         <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
@@ -57,9 +50,9 @@ const AddRoomForm = () => {
                             <DateRange
                                 rangeColors={['#F43F5E']}
                                 editableDateInputs={true}
-                                onChange={item => setState([item.selection])}
+                                onChange={item => handleDates(item)}
                                 moveRangeOnFirstSelection={false}
-                                ranges={state}
+                                ranges={[dates]}
                             />
 
                         </div>

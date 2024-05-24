@@ -3,13 +3,13 @@ import AddRoomForm from "../../../components/Form/AddRoomForm";
 
 const Addroom = () => {
 
-    const [dates, setDates] = useState([
+    const [dates, setDates] = useState(
         {
             startDate: new Date(),
             endDate: null,
             key: 'selection'
         }
-    ])
+    )
 
     //Date range handler
     const handleDates = item => {
