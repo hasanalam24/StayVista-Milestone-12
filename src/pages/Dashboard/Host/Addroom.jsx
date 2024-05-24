@@ -7,6 +7,9 @@ const Addroom = () => {
 
     const { user } = useAuth()
 
+    const [imagePreview, setImagePreview] = useState()
+    const [imageText, setImageText] = useState('Upload Image')
+
     const [dates, setDates] = useState(
         {
             startDate: new Date(),
@@ -60,9 +63,11 @@ const Addroom = () => {
     return (
         <div>
             <h1>Add room page</h1>
-
+            <div className="h-16 w-16">
+                {imagePreview && <img src={imagePreview} />}
+            </div>
             {/* form */}
-            <AddRoomForm dates={dates} handleDates={handleDates} handlerSubmit={handlerSubmit}></AddRoomForm>
+            <AddRoomForm dates={dates} handleDates={handleDates} handlerSubmit={handlerSubmit} setImagePreview={setImagePreview} imagePreview={imagePreview}></AddRoomForm>
         </div>
     );
 };

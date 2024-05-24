@@ -3,7 +3,7 @@ import { categories } from '../Categories/CategoriesData'
 import { DateRange } from 'react-date-range';
 // import { useState } from 'react'
 
-const AddRoomForm = ({ dates, handleDates, handlerSubmit }) => {
+const AddRoomForm = ({ dates, handleDates, handlerSubmit, setImagePreview }) => {
 
 
     return (
@@ -79,6 +79,7 @@ const AddRoomForm = ({ dates, handleDates, handlerSubmit }) => {
                                         <input
                                             className='text-sm cursor-pointer w-36 hidden'
                                             type='file'
+                                            onChange={e => setImagePreview(URL.createObjectURL(e.target.files[0]))}
                                             name='image'
                                             id='image'
                                             accept='image/*'
