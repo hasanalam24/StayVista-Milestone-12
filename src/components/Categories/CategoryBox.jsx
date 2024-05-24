@@ -6,7 +6,7 @@ const CategoryBox = ({ label, icon: Icon }) => {
   const [params, setParams] = useSearchParams()
   const navigate = useNavigate()
   const category = params.get('category')
-  console.log(category)
+  // console.log(category)
 
   const handleClick = () => {
     //step-1: create query string
