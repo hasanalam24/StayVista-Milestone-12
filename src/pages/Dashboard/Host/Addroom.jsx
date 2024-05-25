@@ -2,8 +2,12 @@ import { useState } from "react";
 import AddRoomForm from "../../../components/Form/AddRoomForm";
 import useAuth from "../../../hooks/useAuth";
 import { imageUpload } from "../../../api/Utils";
+import { Helmet } from "react-helmet-async";
+import { useMutation } from '@tanstack/react-query'
+import useAxiosSecure from '../../../hooks/useAxiosSecure'
 
 const Addroom = () => {
+    const axiosSecure = useAxiosSecure()
 
     const { user } = useAuth()
 
@@ -24,6 +28,15 @@ const Addroom = () => {
         setDates(item.selection)
     }
 
+    const { mutateAsync } = useMutation({
+        mutationFn: async roomData => {
+            const { data } = await axiosSecure.post('/room', roomData)
+            return data
+        },
+        onSuccess: () => {
+            console.log('data save Done')
+        }
+    })
     //form handler
     const handlerSubmit = async (e) => {
 
@@ -53,6 +66,9 @@ const Addroom = () => {
             const roomData = { location, category, title, to, from, price, guests, bathrooms, description, bedrooms, image: image_url }
             console.table(roomData)
 
+
+            //post request to server
+            await mutateAsync(roomData)
         } catch (err) {
             console.log(err)
         }
@@ -69,10 +85,10 @@ const Addroom = () => {
 
     return (
         <div>
-            <h1>Add room page</h1>
-            {/* <div className="h-16 w-16">
-                {imagePreview && <img src={imagePreview} />}
-            </div> */}
+            <Helmet>
+                <title>Add Room | Dashboard</title>
+            </Helmet>
+
             {/* form */}
             <AddRoomForm
                 dates={dates}
