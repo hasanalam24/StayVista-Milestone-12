@@ -72,7 +72,7 @@ const Addroom = () => {
         try {
             const image_url = await imageUpload(image)
 
-            const roomData = { location, category, title, to, from, price, guests, bathrooms, description, bedrooms, image: image_url }
+            const roomData = { location, category, title, to, from, price, guests, bathrooms, description, bedrooms, image: image_url, host }
             // console.table(roomData)
 
 
