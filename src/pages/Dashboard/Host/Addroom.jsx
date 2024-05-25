@@ -17,14 +17,14 @@ const Addroom = () => {
     const [dates, setDates] = useState(
         {
             startDate: new Date(),
-            endDate: null,
+            endDate: new Date(),
             key: 'selection'
         }
     )
 
     //Date range handler
     const handleDates = item => {
-        console.log(item)
+        // console.log(item)
         setDates(item.selection)
     }
 
@@ -64,7 +64,7 @@ const Addroom = () => {
             const image_url = await imageUpload(image)
 
             const roomData = { location, category, title, to, from, price, guests, bathrooms, description, bedrooms, image: image_url }
-            console.table(roomData)
+            // console.table(roomData)
 
 
             //post request to server

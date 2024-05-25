@@ -17,7 +17,7 @@ const CategoryBox = ({ label, icon: Icon }) => {
       query: currentQuery,
     })
     //output url: --> /?category=label
-    console.log(url)
+    // console.log(url)
     //step-2: set query string URL
     navigate(url)
 
