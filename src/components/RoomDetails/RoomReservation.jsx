@@ -5,7 +5,7 @@ import { DateRange } from 'react-date-range';
 
 const RoomReservation = ({ room }) => {
 
-  console.log(room.to, room.from)
+  console.log(new Date(room.to).toLocaleDateString())
 
   const [state, setState] = useState([
     {
@@ -25,8 +25,18 @@ const RoomReservation = ({ room }) => {
         <DateRange
           rangeColors={['#f6536d']}
           showDateDisplay={false}
-          editableDateInputs={true}
-          onChange={item => setState([item.selection])}
+          // editableDateInputs={true}
+          // onChange={item => setState([item.selection])}
+          onChange={item => {
+            console.log(item)
+            setState([
+              {
+                startDate: new Date(room.from),
+                endDate: new Date(room.to),
+                key: 'selection'
+              }
+            ])
+          }}
           moveRangeOnFirstSelection={false}
           ranges={state}
         />
