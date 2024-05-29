@@ -4,10 +4,13 @@ import { useState } from 'react'
 import { DateRange } from 'react-date-range';
 
 const RoomReservation = ({ room }) => {
+
+  console.log(room.to, room.from)
+
   const [state, setState] = useState([
     {
-      startDate: new Date(),
-      endDate: null,
+      startDate: new Date(room.from),
+      endDate: new Date(room.to),
       key: 'selection'
     }
   ]);
