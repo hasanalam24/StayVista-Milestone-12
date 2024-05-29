@@ -1,15 +1,18 @@
 import { Helmet } from 'react-helmet-async'
 
 import useAxiosSecure from '../../../hooks/useAxiosSecure'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import useAuth from '../../../hooks/useAuth'
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
+import RoomDataRow from '../TableRows/RoomDataRow'
+import toast from 'react-hot-toast'
 
 const MyListings = () => {
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
 
-    const { data: rooms = [], isLoading } = useQuery({
+    //fetch rooms data
+    const { data: rooms = [], isLoading, refetch } = useQuery({
         queryKey: ['my-listings', user?.email],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/my-listings/${user?.email}`)
@@ -19,7 +22,32 @@ const MyListings = () => {
         }
 
     })
-    console.log(rooms)
+
+
+    //delete api
+    const { mutateAsync } = useMutation({
+        mutationFn: async (id) => {
+            const { data } = await axiosSecure.delete(`/room/${id}`)
+            return data
+        },
+        onSuccess: (data) => {
+            console.log(data)
+            refetch()
+            toast.success('Successfully Deleted!')
+        }
+    })
+
+
+    //handle Delete
+    const handleDelete = async (id) => {
+        console.log(id)
+
+        try {
+            await mutateAsync(id)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     if (isLoading) return <LoadingSpinner />
     return (
@@ -82,7 +110,9 @@ const MyListings = () => {
                                 <tbody>{/* Room row data */}
 
                                     {
-                                        rooms.map(room => <p key={room._id}>{room.title}</p>)
+                                        rooms.map(room =>
+                                            <RoomDataRow key={room._id} room={room} handleDelete={handleDelete}></RoomDataRow>
+                                        )
                                     }
 
 
