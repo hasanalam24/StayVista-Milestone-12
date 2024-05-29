@@ -55,6 +55,19 @@ const AuthProvider = ({ children }) => {
       photoURL: photo,
     })
   }
+
+  //save user
+  const saveUser = async (user) => {
+    const userInfo = {
+      email: user?.email,
+      role: 'guest',
+      status: 'Verified'
+    }
+    const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/user`, userInfo)
+    return data
+  }
+
+
   // Get token from server
   const getToken = async email => {
     const { data } = await axios.post(
@@ -71,6 +84,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser)
       if (currentUser) {
         getToken(currentUser.email)
+        saveUser(currentUser)
       }
       setLoading(false)
     })
