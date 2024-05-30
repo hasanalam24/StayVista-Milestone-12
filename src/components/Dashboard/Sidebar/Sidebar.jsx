@@ -109,7 +109,8 @@ const Sidebar = () => {
 
 
                             {/* admin */}
-                            {role === 'admin' && <AdminMenu></AdminMenu>}
+                            {/* {role === 'admin' && <AdminMenu></AdminMenu>} */}
+                            <AdminMenu></AdminMenu>
 
 
 
