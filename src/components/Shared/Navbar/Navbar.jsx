@@ -4,10 +4,24 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import avatarImg from '../../../assets/images/placeholder.jpg'
+import HostModal from '../../Modal/HostModal'
 
 const Navbar = () => {
   const { user, logOut } = useAuth()
   const [isOpen, setIsOpen] = useState(false)
+
+  //for modal
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+
+  const modalHander = async () => {
+    console.log('i want to host')
+    closeModal()
+  }
+
 
   return (
     <div className='fixed w-full bg-white z-10 shadow-sm'>
@@ -29,15 +43,26 @@ const Navbar = () => {
               <div className='flex flex-row items-center gap-3'>
                 {/* Become A Host btn */}
                 <div className='hidden md:block'>
-                  {!user && (
+                  {/* {!user && (
                     <button
                       disabled={!user}
+                      onClick={() => setIsModalOpen(true)}
                       className='disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full  transition'
                     >
                       Host your home
                     </button>
-                  )}
+                  )} */}
+                  <button
+                    // disabled={!user}
+                    onClick={() => setIsModalOpen(true)}
+                    className='disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full  transition'
+                  >
+                    Host your home
+                  </button>
                 </div>
+                {/* modal */}
+                <HostModal isOpen={isModalOpen} closeModal={closeModal} modalHander={modalHander}></HostModal>
+
                 {/* Dropdown btn */}
                 <div
                   onClick={() => setIsOpen(!isOpen)}
