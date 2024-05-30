@@ -50,6 +50,7 @@ const MyListings = () => {
     }
 
     if (isLoading) return <LoadingSpinner />
+
     return (
         <>
             <Helmet>
