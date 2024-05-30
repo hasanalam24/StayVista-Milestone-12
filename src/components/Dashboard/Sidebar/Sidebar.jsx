@@ -13,6 +13,8 @@ import useAuth from '../../../hooks/useAuth'
 import useRole from '../../../hooks/useRole'
 import MenuItem from './Menu/MenuItem'
 import HostMenu from './Menu/HostMenu'
+import AdminMenu from './Menu/AdminMenu'
+import GuestMenu from './Menu/GuestMenu'
 
 const Sidebar = () => {
     const { logOut } = useAuth()
@@ -99,9 +101,17 @@ const Sidebar = () => {
                             </NavLink> */}
 
                             {/* Add Room & My Listings */}
-                            {
-                                role === 'host' && <HostMenu></HostMenu>
-                            }
+                            {/* only show guest */}
+                            {role === 'guest' && <GuestMenu></GuestMenu>}
+
+                            {/* only host */}
+                            {role === 'host' && <HostMenu></HostMenu>}
+
+
+                            {/* admin */}
+                            {role === 'admin' && <AdminMenu></AdminMenu>}
+
+
 
 
                         </nav>
