@@ -3,7 +3,6 @@ import UpdateUserModal from '../../../Modal/UpdateUserModal'
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import useAxiosSecure from '../../../../hooks/useAxiosSecure'
-import useAuth from '../../../../hooks/useAuth'
 import toast from 'react-hot-toast'
 
 
@@ -11,11 +10,11 @@ const UserDataRow = ({ user, refetch }) => {
 
     const [isOpen, setIsOpen] = useState(false)
     const axiosSecure = useAxiosSecure()
-    const { user: loggedInUser } = useAuth()
+
 
     const { mutateAsync } = useMutation({
-        mutationFn: async (user) => {
-            const { data } = await axiosSecure.patch(`/users/update/${loggedInUser?.email}`, user)
+        mutationFn: async (role) => {
+            const { data } = await axiosSecure.patch(`/users/update/${user?.email}`, role)
             return data
         },
         onSuccess: (data) => {
@@ -33,7 +32,7 @@ const UserDataRow = ({ user, refetch }) => {
 
         const user = {
             role: selected,
-            status: 'Verified'
+            status: 'Verified',
         }
 
         try {
