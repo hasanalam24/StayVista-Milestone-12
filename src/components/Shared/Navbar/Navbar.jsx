@@ -5,8 +5,11 @@ import { Link } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import avatarImg from '../../../assets/images/placeholder.jpg'
 import HostModal from '../../Modal/HostModal'
+import toast from 'react-hot-toast'
+import useAxiosSecure from '../../../hooks/useAxiosSecure'
 
 const Navbar = () => {
+  const axiosSecure = useAxiosSecure()
   const { user, logOut } = useAuth()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -19,7 +22,28 @@ const Navbar = () => {
 
   const modalHander = async () => {
     console.log('i want to host')
-    closeModal()
+    // closeModal()
+
+    //role change host request
+    try {
+      const userInfo = {
+        email: user?.email,
+        role: 'guest',
+        status: 'Requested'
+      }
+      const { data } = await axiosSecure.put(`/user`, userInfo)
+      console.log(data)
+      if (data.modifiedCount > 0) {
+        toast.success('Success! Please wait for admin confirmation')
+      } else {
+        toast.success('Please! Please wait for admin approval')
+      }
+    } catch (err) {
+      // console.log(err)
+      toast.error(err.message)
+    } finally {
+      closeModal()
+    }
   }
 
 
